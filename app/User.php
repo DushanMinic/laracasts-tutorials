@@ -32,8 +32,18 @@ class User extends Model implements AuthenticatableContract,
 
     /**
      * The attributes excluded from the model's JSON form.
+	 *
+	 * A user can have many articles. (laracasts)
      *
      * @var array
-     */
+     */ 
     protected $hidden = ['password', 'remember_token'];
+	
+	
+	public function articles (){
+		
+		return $this->hasMany("App\Article"); // user_id
+		
+		
+		}
 }
