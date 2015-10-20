@@ -46,9 +46,4 @@ class User extends Model implements AuthenticatableContract,
 		
 		}
 		
-	public function isATeamManager(){
-		
-		return true;
-			
-		}
 }
