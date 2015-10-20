@@ -44,6 +44,11 @@ class User extends Model implements AuthenticatableContract,
 		
 		return $this->hasMany("App\Article"); // user_id
 		
+		}
 		
+	public function isATeamManager(){
+		
+		return true;
+			
 		}
 }
