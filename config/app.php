@@ -145,6 +145,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+		
+		Laracasts\Flash\FlashServiceProvider::class, // LARACASTS - flash messaging
 
     ],
 
@@ -196,6 +198,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 		'Form'      => Illuminate\Html\FormFacade::class, // <=== laracasts new line
 		'Html'      => Illuminate\Html\HtmlFacade::class, // <=== laracasts new line
+		'Flash'		=> Laracasts\Flash\Flash::class // laracasts - flash messaging
 
     ],
 
