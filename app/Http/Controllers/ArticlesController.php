@@ -50,7 +50,9 @@
 		
 		public function create() {
 			
-			return view("articles.create");
+			$tags = \App\Tag::lists("name", "id");
+			
+			return view("articles.create", compact('tags'));
 			
 		}
 		
@@ -62,7 +64,10 @@
 			
 			\Auth::user()->articles()->save($article);
 		*/
-			Auth::user()->articles()->create($request->all());
+		
+			$article = Auth::user()->articles()->create($request->all());
+			
+			$article->tags()->attach($request->input("tag_list"));
 			
 	
 			flash()->overlay("Your article has been successfully created", "Good Job");
@@ -79,7 +84,10 @@
 		
 		public function edit (Article $article) {
 			
-			return view("articles.edit", compact("article"));
+			$tags = \App\Tag::lists("name", "id");
+
+			
+			return view("articles.edit", compact("article", "tags"));
 		}
 		
 		
