@@ -13,16 +13,18 @@
 	class ArticlesController extends Controller
 	{
 		/**
-			*Show all articles.
-			*
-			*@return Response
+		*Create a new articles controller instance.
 		*/
 		
 		public function __construct(){
 			$this->middleware("auth", ["except" => "index", "show"]);
 		}
 		
-		
+		/**
+		*Show all articles.
+		*
+		*@return Response
+		*/
 		
 		public function index () 
 		{
@@ -39,14 +41,17 @@
 		*@return Response
 		*/
 		
-		
 		public function show (Article $article) 
 		{
 			
 			return view("articles.show", compact("article"));
 		}
 		
-		
+		/**
+		*Show the page to create a new article. 
+		*
+		*@return Response
+		*/
 		
 		public function create() {
 			
@@ -56,7 +61,12 @@
 			
 		}
 		
-		
+		/**
+		*Save a new article.
+		*
+		*@param ArticleRequest $request
+		*@return Response
+		*/
 		
 		public function store (ArticleRequest $request){
 			
@@ -65,11 +75,8 @@
 			\Auth::user()->articles()->save($article);
 		*/
 		
-			$article = Auth::user()->articles()->create($request->all());
+			$this->createArticle($request);
 			
-			$article->tags()->attach($request->input("tag_list"));
-			
-	
 			flash()->overlay("Your article has been successfully created", "Good Job");
 			
 			return redirect("articles");
@@ -96,8 +103,38 @@
 			
 			$article->update($request->all());
 			
+		//	$article->tags()->sync($request->input("tag_list"));
+		
+			$this->syncTags($article, $request->input("tag_list"));
+
+			
 			return redirect("articles");
 			
 		}
 		
+		/**
+		*Sync up the list of tags in the database
+		*
+		*@param Article $article
+		*@param array $tags
+		*/
+		
+		private function syncTags(Article $article, array $tags){
+			$article->tags()->sync($tags);
+			}
+		
+		/**
+		*Save a new article.
+		*
+		*@param ArticleRequest $request
+		*@return mixed
+		*/
+		private function createArticle(ArticleRequest $request){
+		
+			$article = Auth::user()->articles()->create($request->all());
+			
+			$this->syncTags($article, $request->input("tag_list"));
+			
+			return $article;
+			}
 	}
