@@ -16,6 +16,11 @@ class Article extends Model
 	
 	protected $dates = ["published_at"];
 	
+	/**
+	*Scope queries to articles that have been published.
+	*
+	*@param $query
+	*/
 	public function scopePublished($query){
 		
 		$query->where("published_at", "<=", Carbon::now());
@@ -33,6 +38,17 @@ class Article extends Model
 		$this->attributes["published_at"] = Carbon::parse($date);
 		
 		}
+		
+		/**
+		* Get the published_at attribute.
+		*
+		* @param $date
+		*@return string
+		*/
+		
+		public function getPublishedAtAttribute($date){
+			return Carbon::parse($date)->format("Y-m-d");
+			}
 		
 		/**
 		* An article is owned by a user.

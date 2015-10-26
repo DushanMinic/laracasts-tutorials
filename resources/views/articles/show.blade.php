@@ -1,3 +1,5 @@
+
+
 @extends ("app")
 
 @section("content")
@@ -17,5 +19,6 @@
 			@endforeach
 		</ul>
 	@endunless
+	
 	
 @stop

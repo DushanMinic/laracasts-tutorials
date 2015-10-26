@@ -13,7 +13,7 @@
 	class ArticlesController extends Controller
 	{
 		/**
-		*Create a new articles controller instance.
+			*Create a new articles controller instance.
 		*/
 		
 		public function __construct(){
@@ -21,9 +21,9 @@
 		}
 		
 		/**
-		*Show all articles.
-		*
-		*@return Response
+			*Show all articles.
+			*
+			*@return Response
 		*/
 		
 		public function index () 
@@ -35,10 +35,10 @@
 			
 		}
 		/**
-		*Show a single article
-		*
-		*@param Article $article
-		*@return Response
+			*Show a single article
+			*
+			*@param Article $article
+			*@return Response
 		*/
 		
 		public function show (Article $article) 
@@ -48,9 +48,9 @@
 		}
 		
 		/**
-		*Show the page to create a new article. 
-		*
-		*@return Response
+			*Show the page to create a new article. 
+			*
+			*@return Response
 		*/
 		
 		public function create() {
@@ -62,19 +62,19 @@
 		}
 		
 		/**
-		*Save a new article.
-		*
-		*@param ArticleRequest $request
-		*@return Response
+			*Save a new article.
+			*
+			*@param ArticleRequest $request
+			*@return Response
 		*/
 		
 		public function store (ArticleRequest $request){
 			
-		/*	$article = new Article($request->all());
+			/*	$article = new Article($request->all());
+				
+				\Auth::user()->articles()->save($article);
+			*/
 			
-			\Auth::user()->articles()->save($article);
-		*/
-		
 			$this->createArticle($request);
 			
 			flash()->overlay("Your article has been successfully created", "Good Job");
@@ -83,16 +83,16 @@
 		}
 		
 		/**
-		*Edit and existing article
-		*
-		*@param Article $article
-		*@return Response
+			*Edit and existing article
+			*
+			*@param Article $article
+			*@return Response
 		*/
 		
 		public function edit (Article $article) {
 			
 			$tags = \App\Tag::lists("name", "id");
-
+			
 			
 			return view("articles.edit", compact("article", "tags"));
 		}
@@ -103,38 +103,40 @@
 			
 			$article->update($request->all());
 			
-		//	$article->tags()->sync($request->input("tag_list"));
-		
+			//	$article->tags()->sync($request->input("tag_list"));
+			
 			$this->syncTags($article, $request->input("tag_list"));
-
+			
 			
 			return redirect("articles");
 			
 		}
 		
 		/**
-		*Sync up the list of tags in the database
-		*
-		*@param Article $article
-		*@param array $tags
+			*Sync up the list of tags in the database
+			*
+			*@param Article $article
+			*@param array $tags
 		*/
 		
 		private function syncTags(Article $article, array $tags){
 			$article->tags()->sync($tags);
-			}
+		}
 		
 		/**
-		*Save a new article.
-		*
-		*@param ArticleRequest $request
-		*@return mixed
+			*Save a new article.
+			*
+			*@param ArticleRequest $request
+			*@return mixed
 		*/
 		private function createArticle(ArticleRequest $request){
-		
+			
 			$article = Auth::user()->articles()->create($request->all());
 			
 			$this->syncTags($article, $request->input("tag_list"));
 			
 			return $article;
-			}
+		}
+		
+		
 	}
