@@ -21,7 +21,7 @@ class Article extends Model
 	*
 	*@param $query
 	*/
-	public function scopePublished($query){
+	public function scopePublished ($query){
 		
 		$query->where("published_at", "<=", Carbon::now());
 		

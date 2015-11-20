@@ -2,7 +2,7 @@
 <html lang="eng">
 	<head>
 		<meta charset="UTF-8">
-		<title>My First App</title>
+		<title>Blog</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 		
